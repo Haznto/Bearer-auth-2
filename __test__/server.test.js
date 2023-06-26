@@ -32,13 +32,24 @@ afterAll(async () => {
         expect( await bcrypt.compare('12345',res.body.password)).toEqual(true)
   });
 
+    it('POST to /signin to login as a user (use basic auth). & Need tests for auth middleware and the routes.', async () => {
+    const res = await req
+      .post('/signin')
+      .set('Authorization', `Basic ${await base64.encode('Saeed:12345')}` )
+     
+    
+    // console.log(res.request._header.authorization); // Log the authorization header value
+    expect(res.status).toBe(200); // since Jalal is in the database, the auth middleware will work fine and send 200 status code.
+    expect(res.request._header.authorization).toBe('Basic U2FlZWQ6MTIzNDU=');
+  });
+
     it('should successfully access an authenticated route', async () => {
       const res = await req
         .get('/secretstuff')
         .set('Authorization', `Bearer ${token}`);
   
       // Assert the expected behavior based on the authentication status
-      expect(res.status).toBe(500);
+      expect(res.status).toBe(200);
       // ...
     });
   
@@ -53,6 +64,4 @@ afterAll(async () => {
   
     // Additional test cases for different authentication scenarios
   });
-  
-
   
