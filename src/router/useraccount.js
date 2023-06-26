@@ -11,7 +11,7 @@ const bearerAuth = require('../Auth/bearerAuth')
 
 router.post('/signup', handleSignUp)
 router.post('/signin',basicAuth, handleSignIn)
-// router.get('/secretstuff',bearerAuth, handleTokenRout)
+router.get('/secretstuff',bearerAuth, handleTokenRout)
 
 
 async function handleSignUp(req,res){
@@ -35,11 +35,11 @@ async function handleSignIn(req,res){
     } 
 }
 
-// async function handleTokenRout (req,res) {
-//     let secretNum = Math.random()*10000000;
-//     res.status(200).json({
-//         yourSecretNumber: secretNum
-//     })
-// }
+async function handleTokenRout (req,res) {
+    let secretNum = Math.random()*10000000;
+    res.status(200).json({
+        yourSecretNumber: secretNum
+    })
+}
 
 module.exports = router;
